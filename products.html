@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Top PHP & JS Products</title>
+    <style>
+      body { font-family: Arial, sans-serif; padding: 20px; max-width: 600px; margin: auto; }
+      h1 { color: #333; }
+      .product { padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 8px; }
+      .product strong { color: #00509e; }
+    </style>
+  </head>
+  <body>
+    <h1>Famous Products Using PHP & JavaScript</h1>
+    <div id="results">Loading...</div>
+  
+    <script>
+      fetch('famousProducts.php')
+        .then(res => res.json())
+        .then(data => {
+          const container = document.getElementById('results');
+          container.innerHTML = '';
+          data.forEach(p => {
+            const el = document.createElement('div');
+            el.className = 'product';
+            el.innerHTML = `<strong>${p.name}</strong><br>Languages: ${p.languages.join(', ')}<br>⭐ ${p.stars} stars`;
+            container.appendChild(el);
+          });
+        })
+        .catch(() => {
+          document.getElementById('results').innerText = 'Failed to load data.';
+        });
+    </script>
+  </body>
+</html>
